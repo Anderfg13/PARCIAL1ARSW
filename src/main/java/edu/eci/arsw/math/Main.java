@@ -32,6 +32,7 @@ public class Main {
             }
 
         }
+        scanner.close();
         //System.out.println(bytesToHex(PiDigits.getDigits(1, 1000000)));
     }
 
