@@ -5,7 +5,7 @@
  */
 package edu.eci.arsw.math;
 
-import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Clase principal para ejecutar el cálculo de los dígitos de PI en paralelo usando hilos.
@@ -19,16 +19,18 @@ public class Main {
     public static void main(String a[]) {
         //System.out.println(bytesToHex(PiDigits.getDigits(0, 10)));
         Thread calcThread = new Thread(() -> {
-            System.out.println(bytesToHex(PiDigits.getDigits(1, 10000, 4)));
+            System.out.println(bytesToHex(PiDigits.getDigits(1, 20000, 10)));
         });
         calcThread.start();
 
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        Scanner scanner = new java.util.Scanner(System.in);
         while (calcThread.isAlive()) {
             scanner.nextLine();
-            synchronized (PiThread.bell) {
-                PiThread.bell.notifyAll();
+            synchronized (BBPThread.wait) {
+                BBPThread.wait.notifyAll();
+
             }
+
         }
         //System.out.println(bytesToHex(PiDigits.getDigits(1, 1000000)));
     }

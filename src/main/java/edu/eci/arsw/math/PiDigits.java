@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class PiDigits {
 
     private static double Epsilon = 1e-17;
-    private static ArrayList<PiThread> threads = new ArrayList<>();
+    private static ArrayList<BBPThread> threads = new ArrayList<>();
 
     
     public static byte[] getDigits(int start, int count, int N) {
@@ -23,20 +23,20 @@ public class PiDigits {
             throw new RuntimeException("Invalid Interval");
         }
 
-        int digitsPerThread = count / N;
+        int digitsPerThread = count / N; //Divido por partes iguales
         int remainder = count % N; //Lo que el profe decía si era impar
         int currentStart = start;
         for (int i = 0; i < N; i++){
-            int threadDigits = digitsPerThread + (i < remainder ? 1 : 0);
-            PiThread thread = new PiThread();
-            thread.setStart(currentStart);
-            thread.setEnd(currentStart + threadDigits);
-            threads.add(thread);
-            thread.start();
+            int threadDigits = digitsPerThread + (i < remainder ? 1 : 0); //Por si sobran uno o mas
+            BBPThread thread = new BBPThread();
+            thread.setBegin(currentStart); //Creo los hilos y les asigno el inicio del rango
+            thread.setEnd(currentStart + threadDigits); //Creo los hilos y les asigno el final del rango
+            threads.add(thread); //Creo el nuevo hilo al array de hilos
+            thread.start(); //Inicial el hilo
             currentStart += threadDigits;
         }
         
-        for (PiThread thread : threads) {
+        for (BBPThread thread : threads) {
             try {
                 thread.join();
             } catch (InterruptedException e){
@@ -46,7 +46,7 @@ public class PiDigits {
 
         byte[] digits = new byte[count];
         int pos = 0;
-        for (PiThread thread : threads) {
+        for (BBPThread thread : threads) {
             ArrayList<Integer> workerDigits = thread.getDigits();
             for (int j = 0; j < workerDigits.size() && pos < count; j++) {
                 digits[pos] = workerDigits.get(j).byteValue();
