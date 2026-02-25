@@ -14,13 +14,6 @@ public class PiDigits {
     private static ArrayList<PiThread> threads = new ArrayList<>();
 
     
-    /**
-     * Calcula un rango de dígitos hexadecimales de PI usando N hilos en paralelo.
-     * @param start Posición inicial del rango (primer dígito a calcular).
-     * @param count Cantidad de dígitos a calcular.
-     * @param N Número de hilos a usar.
-     * @return Arreglo de bytes con los dígitos hexadecimales de PI.
-     */
     public static byte[] getDigits(int start, int count, int N) {
         if (start < 0) {
             throw new RuntimeException("Invalid Interval");
@@ -31,7 +24,7 @@ public class PiDigits {
         }
 
         int digitsPerThread = count / N;
-        int remainder = count % N;
+        int remainder = count % N; //Lo que el profe decía si era impar
         int currentStart = start;
         for (int i = 0; i < N; i++){
             int threadDigits = digitsPerThread + (i < remainder ? 1 : 0);
@@ -64,12 +57,7 @@ public class PiDigits {
     }
 
 
-    /**
-     * Calcula la sumatoria de la fórmula BBP para un dígito específico.
-     * @param m Parámetro de la fórmula BBP.
-     * @param n Posición del dígito a calcular.
-     * @return Resultado de la sumatoria para ese término.
-     */
+
     public static double sum(int m, int n) {
         double sum = 0;
         int d = m;
@@ -95,12 +83,6 @@ public class PiDigits {
         return sum;
     }
     
-    /**
-     * Calcula 16^p mod m, usado en la fórmula BBP.
-     * @param p Exponente.
-     * @param m Módulo.
-     * @return Resultado de 16^p mod m.
-     */
     private static int hexExponentModulo(int p, int m) {
         int power = 1;
         while (power * 2 <= p) {

@@ -15,18 +15,14 @@ import java.util.Arrays;
  */
 public class Main {
 
-    /**
-     * Método principal. Lanza el cálculo en un hilo y permite pausar/reanudar con Enter.
-     */
+
     public static void main(String a[]) {
         //System.out.println(bytesToHex(PiDigits.getDigits(0, 10)));
-        // Lanzar el cálculo en un hilo aparte para poder leer Enter
         Thread calcThread = new Thread(() -> {
             System.out.println(bytesToHex(PiDigits.getDigits(1, 10000, 4)));
         });
         calcThread.start();
 
-        // Esperar Enter y notificar a los hilos cada vez
         java.util.Scanner scanner = new java.util.Scanner(System.in);
         while (calcThread.isAlive()) {
             scanner.nextLine();
@@ -39,11 +35,7 @@ public class Main {
 
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
-    /**
-     * Convierte un arreglo de bytes a una cadena hexadecimal.
-     * @param bytes Arreglo de bytes con los dígitos de PI.
-     * @return Cadena en base 16.
-     */
+
     public static String bytesToHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {
