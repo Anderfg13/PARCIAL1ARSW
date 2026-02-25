@@ -18,6 +18,7 @@ public class Main {
 
     public static void main(String a[]) {
         //System.out.println(bytesToHex(PiDigits.getDigits(0, 10)));
+        //System.out.println(bytesToHex(PiDigits.getDigits(1, 1000000)));
         Thread calcThread = new Thread(() -> {
             System.out.println(bytesToHex(PiDigits.getDigits(1, 20000, 10)));
         });
@@ -28,12 +29,9 @@ public class Main {
             scanner.nextLine();
             synchronized (BBPThread.wait) {
                 BBPThread.wait.notifyAll();
-
             }
-
         }
         scanner.close();
-        //System.out.println(bytesToHex(PiDigits.getDigits(1, 1000000)));
     }
 
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
