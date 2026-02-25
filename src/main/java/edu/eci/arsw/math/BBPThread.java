@@ -24,7 +24,7 @@ class BBPThread extends Thread {
             process++;
 
             if (System.currentTimeMillis() - lastPause >= 5000) { 
-                System.out.println("Hilo " + this.getName() + " ha procesado " + process + " dígitos.");
+                System.out.println("El Hilo de numero " + this.getName() + " ya ha procesado " + process + " dígitos de PI");
                 synchronized (wait) {
                     try {
                         wait.wait();
@@ -37,7 +37,7 @@ class BBPThread extends Thread {
         }
         
         if (process > 0 && System.currentTimeMillis() - lastPause < 5000) {
-            System.out.println("Hilo " + this.getName() + " ha procesado " + process + " dígitos.");
+            System.out.println("El Hilo de número " + this.getName() + " ya ha procesado " + process + " dígito de PI");
         }
     }
 
